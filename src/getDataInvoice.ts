@@ -2,12 +2,13 @@ import puppeteer from "puppeteer"
 import { puppeteerArgs } from "./puppeteerArgs"
 
 export async function getDataInvoice(invoiceNumber: string) {
-	// Start the timer
 	console.time()
 
 	if (invoiceNumber.length !== 44) throw new Error("Invalid invoice number")
 
 	const browser = await puppeteer.launch({
+		// If you want use "headless" argument, passing "false"
+		// You can't use "puppeteerArgs"
 		args: puppeteerArgs,
 	})
 	const page = await browser.newPage()
@@ -27,7 +28,6 @@ export async function getDataInvoice(invoiceNumber: string) {
 	console.log(`QTD de produtos: ${totalProducts?.length}`)
 	console.log(`Total: R$${totalValue}\n`)
 
-	// End the timer, to execute the code above
 	console.timeEnd()
 
 	await browser.close()
